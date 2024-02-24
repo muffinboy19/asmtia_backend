@@ -14,4 +14,8 @@ router.patch("/updatecricketresult", );
 router.patch("/updatefootballresult", );
 router.patch("/updateathleticresult", );
 
+router.delete("/deletecricketresult", );
+router.delete("/deletefootballresult", );
+router.delete("/deleteathleticresult", );
+
 export default router;
