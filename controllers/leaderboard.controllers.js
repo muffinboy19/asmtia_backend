@@ -17,7 +17,7 @@ export const getLeaderboard = async (req, res) => {
 
 export const updateLeaderboardEntry = async (req, res) => {
     const { id } = req.params;
-    const { Points } = req.body;
+    const newPoints = req.body.Points;
 
     try {
         // If not valid
@@ -26,7 +26,7 @@ export const updateLeaderboardEntry = async (req, res) => {
 
         const updatedEntry = await Leaderboard.findByIdAndUpdate(
             id,
-             Points ,
+            { Points: newPoints },
             { new: true }
         );
 
