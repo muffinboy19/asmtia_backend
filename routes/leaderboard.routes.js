@@ -1,15 +1,8 @@
 import express from "express";
+import { getLeaderboard, updateLeaderboardEntry } from "../controllers/leaderboard.controllers";
+const router = express.Router()
 
-const router=express.Router()
-
-router.get("/readleaderboard", (req, res) => {
-    res.send("Leaderboard");
-})
-
-router.post("/leaderboard", );
-
-router.patch("/leaderboard/:id", );
-
-router.delete("/leaderboard/:id", );
+router.get("/leaderboard", getLeaderboard);
+router.patch("/leaderboard/:id", updateLeaderboardEntry);
 
 export default router;
