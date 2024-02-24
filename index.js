@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 
 import { connectDB } from "./config/db.config.js";
 
+import leaderboard from "./routes/leaderboard.routes.js";
+import results from "./routes/results.routes.js";
+
 dotenv.config();
 
 const app = express();
@@ -14,9 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
-app.use('/api/v1/fixtures/',);
-app.use('/api/v1/results/',);
-app.use('/api/v1/leaderboard/',);
+//app.use('/api/v1/fixtures/',);
+app.use('/api/v1/results/',results);
+app.use('/api/v1/leaderboard/',leaderboard);
 
 
 app.get("/", (req, res) => {
