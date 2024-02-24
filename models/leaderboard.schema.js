@@ -1,0 +1,26 @@
+import mongoose from "mongoose";
+const { Schema, model } = mongoose
+
+const leaderboardSchema = new Schema(
+    {
+        Name: {
+            type: Schema.Types.String,
+            ref: "Name",
+            default: "IIIT-A",
+        },
+        Logo: {
+            type: Schema.Types.String,
+            ref: "Logo",
+            default: "https://t3.ftcdn.net/jpg/02/78/42/76/360_F_278427683_zeS9ihPAO61QhHqdU1fOaPk2UClfgPcW.jpg",
+        },
+        Points: {
+            type: Schema.Types.Number,
+            ref: "Points",
+            default: 20,
+        }
+    }
+
+)
+const Leaderboard = model("Leaderboard", leaderboardSchema);
+
+export default Leaderboard;
