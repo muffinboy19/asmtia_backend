@@ -1,60 +1,61 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose
+const { Schema, model } = mongoose;
 //this is the second type of model for fixtures
 const athleteSchema = new Schema({
-    ClgImg1:{
+    ClgImg1: {
         type: Schema.Types.String,
         ref: "ClgImg1",
-        default: "https://t3.ftcdn.net/jpg/02/78/42/76/360_F_278427683_zeS9ihPAO61QhHqdU1fOaPk2UClfgPcW.jpg",
+        default:
+            "https://t3.ftcdn.net/jpg/02/78/42/76/360_F_278427683_zeS9ihPAO61QhHqdU1fOaPk2UClfgPcW.jpg",
     },
-    ClgImg2:{
+    ClgImg2: {
         type: Schema.Types.String,
         ref: "ClgImg2",
-        default: "https://t3.ftcdn.net/jpg/02/78/42/76/360_F_278427683_zeS9ihPAO61QhHqdU1fOaPk2UClfgPcW.jpg",
+        default:
+            "https://t3.ftcdn.net/jpg/02/78/42/76/360_F_278427683_zeS9ihPAO61QhHqdU1fOaPk2UClfgPcW.jpg",
     },
 
-    ClgName1:{
+    ClgName1: {
         type: Schema.Types.String,
         ref: "ClgName1",
         default: "IIIT-A",
     },
-    ClgName2:{
+    ClgName2: {
         type: Schema.Types.String,
         ref: "ClgName2",
         default: "IIIT-A",
     },
-    Date:{
+    Date: {
         type: Schema.Types.String,
         ref: "Date",
         default: "12/12/2021",
     },
-    GroupStage:{
+    GroupStage: {
         type: Schema.Types.String,
         ref: "GroupStage",
         default: "Semi Final",
     },
-    MatchName:{
+    MatchName: {
         type: Schema.Types.String,
         ref: "MatchName",
         default: "Relay - 500m",
     },
-    Player1:{
+    Player1: {
         type: Schema.Types.String,
         ref: "Player1",
         default: "Devam Desai",
     },
-    Player2:{
+    Player2: {
         type: Schema.Types.String,
         ref: "Player2",
         default: "Om B",
     },
-    Player3:{
+    Player3: {
         type: Schema.Types.String,
         ref: "Player3",
         default: "Rahul",
     },
-   
-})
+});
 
-const AthleteResults = model("AthleteResults",athleteSchema );
+const AthleteResults = model("AthleteResults", athleteSchema);
 export default AthleteResults;
