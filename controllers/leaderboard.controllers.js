@@ -1,5 +1,5 @@
 import Leaderboard from "../models/leaderboard.schema.js";
-
+import mongoose from "mongoose";
 export const getLeaderboard = async (req, res) => {
     try {
         const data = await Leaderboard.find().sort({ Points: -1 });
@@ -26,7 +26,7 @@ export const updateLeaderboardEntry = async (req, res) => {
 
         const updatedEntry = await Leaderboard.findByIdAndUpdate(
             id,
-            { Points },
+             Points ,
             { new: true }
         );
 
