@@ -6,14 +6,13 @@ export const getLeaderboard = async (req, res) => {
         res.status(200).send({
             success: true,
             message: "Fetched Successfully",
-            data
-        }
-        );
+            data,
+        });
     } catch (error) {
         console.log(error);
         res.send(500).json({ message: error.message });
     }
-}
+};
 
 export const updateLeaderboardEntry = async (req, res) => {
     const { id } = req.params;
@@ -23,7 +22,7 @@ export const updateLeaderboardEntry = async (req, res) => {
         // If not valid
         if (!mongoose.Types.ObjectId.isValid(id))
             return res.status(404).json({ message: `Invalid entry id: ${id}` });
-        
+
         const updatedEntry = await Leaderboard.findByIdAndUpdate(
             id,
             { Points: newPoints },
@@ -33,7 +32,11 @@ export const updateLeaderboardEntry = async (req, res) => {
         updatedEntry.save();
         console.log(updatedEntry);
         if (!updatedEntry)
-            return res.status(404).json({ message: `Leaderboard entry not found with id: ${id}` });
+            return res
+                .status(404)
+                .json({
+                    message: `Leaderboard entry not found with id: ${id}`,
+                });
 
         res.status(200).json(updatedEntry);
     } catch (error) {
