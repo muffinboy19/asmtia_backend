@@ -1,4 +1,4 @@
-import Leaderboard from "../models/leaderboard.schema";
+import Leaderboard from "../models/leaderboard.schema.js";
 
 export const getLeaderboard = async (req, res) => {
     try {

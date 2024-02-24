@@ -1,6 +1,6 @@
-import AthleteResults from "../models/athelteresults.schema";
-import FootballResults from "../models/footballresults.schema";
-import CricketResults from "../models/cricketresults.schema";
+import AthleteResults from "../models/athelteresults.schema.js";
+import FootballResults from "../models/footballresults.schema.js";
+import CricketResults from "../models/cricketresults.schema.js";
 
 export const getResultsController= async (req,res)=>{
     try {
@@ -9,7 +9,10 @@ export const getResultsController= async (req,res)=>{
         const cricketResults= await CricketResults.find({});
         const athleteResults= await AthleteResults.find({});
 
-        var data=footballResults.append(cricketResults).append(athleteResults);
+        const data = [];
+        data.push(...footballResults);
+        data.push(...cricketResults);
+        data.push(...athleteResults);
         
         res.status(200).send({
             success:true,
@@ -108,34 +111,8 @@ export const updateAtheleteResultController= async (req,res)=>{
     }
 };
 
-export const createResultController=async (req,res)=>{
+export const createFootballResultController=async (req,res)=>{
     try {
-            const {type}=req.body;
-            if(type==0){//athlete
-                const { Date, GroupStage,MatchName,Player1,Player2,Player3 } = req.body;
-                if(!Date||!GroupStage||!MatchName||!Player1 ||!Player2||!Player3){
-                    return res.status(500).send({error:"Insufficient Data"});
-                }
-
-
-                const newResult = await new AthleteResults({
-                    Date, 
-                    GroupStage,
-                    MatchName,
-                    Player1,
-                    Player2,
-                    Player3
-                })
-                .save();
-                res.status(201).send({
-                    success:true,
-                    message:'Result Created',
-                    newResult
-                })
-                
-
-            }
-            else if(type==1){//football
                 const { ClgImg1,ClgImg2,ClgName1,ClgName2, Date, GroupStage,MatchName, Score } = req.body;
                 if(!ClgImg1||!ClgImg2||!ClgName1||!ClgName2|| !Date||!GroupStage||!MatchName||!Score){
                     return res.status(500).send({error:"Insufficient Data"});
@@ -156,8 +133,60 @@ export const createResultController=async (req,res)=>{
                     message:'Result Created',
                     newResult
                 })
-            }
-            else if(type==2){//cricket
+           
+    } catch (error) {
+        res.send(201).send({
+            success:false,
+            message: "Error in creating result",
+            error: error.message
+        })
+    }
+}
+
+
+
+
+export const createAthleteResultController=async (req,res)=>{
+    try {          
+            console.log(req.body);
+                const { Date,GroupStage,MatchName,Player1,Player2,Player3 } = req.body;
+                console.log(Date);
+                if(!Date ) return res.status(500).send({error:"Date"});
+                if(!Date||!GroupStage||!MatchName||!Player1 ||!Player2||!Player3){
+                    return res.status(500).send({error:"Insufficient Data3"});
+                }
+                const newResult = await new AthleteResults({
+                    Date, 
+                    GroupStage,
+                    MatchName,
+                    Player1,
+                    Player2,
+                    Player3
+                })
+                .save();
+                res.status(201).send({
+                    success:true,
+                    message:'Result Created',
+                    newResult
+                })
+        
+    } catch (error) {
+        res.send(201).send({
+            success:false,
+            message: "Error in creating result",
+            error: error.message
+        })
+    }
+}
+
+
+
+
+
+export const createCricketResultController=async (req,res)=>{
+    try {
+            const {type}=req.body;
+            
                 const { ClgImg1,ClgImg2,ClgName1,ClgName2, Date, GroupStage,MatchName,Over1,Over2,Score1,Score2 } = req.body;
                 if(!ClgImg1||!ClgImg2||!ClgName1||!ClgName2|| !Date||!GroupStage||!MatchName||!Score1 ||!Score2||!Over1||!Over2){
                     return res.status(500).send({error:"Insufficient Data"});
@@ -182,14 +211,6 @@ export const createResultController=async (req,res)=>{
                     message:'Result Created',
                     newResult
                 })
-                
-            }
-            else{
-                res.send(422).send({
-                    success:false,
-                    message: "Invalid Result Type"
-                })
-            }
         
     } catch (error) {
         res.send(201).send({
