@@ -1,35 +1,45 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose
+const { Schema, model } = mongoose;
 //this is the second type of model for fixtures
+//for two player sports
 const fixture1Schema = new Schema({
     DisplayName1: {
         type: Schema.Types.String,
-        ref: "DisplayName1",
         default: "Devam Desai",
     },
     CollegeName1: {
         type: Schema.Types.String,
-        ref: "CollegeName1",
         default: "IIIT-A",
     },
     DisplayName2: {
         type: Schema.Types.String,
-        ref: "DisplayName2",
         default: "Om B",
     },
     CollegeName2: {
         type: Schema.Types.String,
-        ref: "CollegeName2",
         default: "IIIT-A",
     },
-    Type:{
+    Date: {
         type: Schema.Types.String,
-        ref: "Type",
+    },
+    Day: {
+        type: Schema.Types.Number,
+        default: 0,
+    },
+    Type: {
+        type: Schema.Types.String,
         default: "Football",
-    }
-    }
-)
+    },
+    Sport: {
+        type: Schema.Types.String,
+        default: "Football",
+    },
+    Data: {
+        type: Schema.Types.String,
+        default: null,
+    },
+});
 
-const Fixture1 = model("Fixture1",fixture1Schema );
+const Fixture1 = model("Fixture1", fixture1Schema);
 
 export default Fixture1;

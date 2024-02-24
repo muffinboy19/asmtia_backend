@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose
+const { Schema, model } = mongoose;
 //this is the second type of model for fixtures
 const athleteSchema = new Schema({
     
@@ -8,32 +8,32 @@ const athleteSchema = new Schema({
         ref: "Date",
         default: "12/12/2021",
     },
-    GroupStage:{
+    GroupStage: {
         type: Schema.Types.String,
         ref: "GroupStage",
         default: "Semi Final",
     },
-    MatchName:{
+    MatchName: {
         type: Schema.Types.String,
         ref: "MatchName",
         default: "Relay - 500m",
     },
-    Player1:{
+    Player1: {
         type: Schema.Types.String,
         ref: "Player1",
         default: "Devam Desai",
     },
-    Player2:{
+    Player2: {
         type: Schema.Types.String,
         ref: "Player2",
         default: "Om B",
     },
-    Player3:{
+    Player3: {
         type: Schema.Types.String,
         ref: "Player3",
         default: "Rahul",
     },
-})
+});
 
-const AthleteResults = model("AthleteResults",athleteSchema );
+const AthleteResults = model("AthleteResults", athleteSchema);
 export default AthleteResults;
