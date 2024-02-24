@@ -1,30 +1,16 @@
-import Fixture1 from "../models/fixture1.schema.js";
-import Fixture2 from "../models/fixture2.schema.js";
+import Fixture from "../models/fixture.schema.js";
 import {
     response_200,
     response_404,
     response_500,
 } from "../utils/responseCodes.js";
 
-async function getSchemaType(sportName) {
-    const checkIn1 = await Fixture1.findOne({ Sport: sportName });
-    if (checkIn1) return Fixture1;
-    else {
-        const checkIn2 = await Fixture2.findOne({ Sport: sportName });
-        if (checkIn2) return Fixture2;
-        else return null;
-    }
-}
-
 export async function getBySport(req, res) {
     const sportName = req.params.sport;
     try {
-        const sportSchema = getSchemaType(sportName);
-        if (!sportSchema) {
-            console.log("Invalid sport name.");
-            response_404(res, "Invalid sport name. Please contact admins");
-        }
-        const sportFixtures = await sportSchema.findOne({ Sport: sportName });
+        const sportFixtures = await Fixture.find({
+            Sport: sportName,
+        });
         response_200(
             res,
             `Successfully fetched ${sportName} fixtures`,
@@ -37,11 +23,10 @@ export async function getBySport(req, res) {
 }
 
 export async function getByDay(req, res) {
-    const sportName = req.params.sport; //cricket, football, swimming, athletics, tabletennis, tennis, etc.
+    const sportName = req.params.sport; //cricket, football, swimming, athletics, tabletennis, tennis, etc. keep as dropdown
     const day = req.params.day; //1,2,3,4
     try {
-        const sportSchema = getSchemaType(sportName);
-        const checkDay = await sportSchema.find({
+        const checkDay = await Fixture.find({
             Sport: sportName,
             Day: day,
         });
@@ -60,5 +45,39 @@ export async function getByDay(req, res) {
     } catch (err) {
         console.log(err);
         response_500(res, "Error while fetching sport results by day", err);
+    }
+}
+
+export async function createFixture(req, res) {
+    // drop down on admin side
+    try {
+        const sportName = req.body.sport;
+        // 1,2,3,4
+        const day = req.body.day;
+        // date
+        const date = req.body.date;
+        // tinymce
+        const data = req.body.htmlData;
+
+        const addFixture = await Fixture.create({
+            Sport: sportName,
+            Day: day,
+            Date: date,
+            HTMLString: data,
+        });
+
+        if (addFixture) {
+            console.log(
+                `Successfully added fixture for Day ${day} of ${sportName}`
+            );
+            response_200(
+                res,
+                `Successfully added fixture for Day ${day} of ${sportName}`,
+                addFixture
+            );
+        }
+    } catch (err) {
+        console.log(`Error occurred while creating fixture`);
+        response_500(res, `Error occurred while creating fixture`, err);
     }
 }
