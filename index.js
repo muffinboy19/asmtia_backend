@@ -3,10 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import { connectDB } from "./config/db.config.js";
-
-import leaderboard from "./routes/leaderboard.routes.js";
-import results from "./routes/results.routes.js";
-import fixtures from "./routes/fixture.routes.js";
+import appRouter from "./routes/api.js";
 
 dotenv.config();
 
@@ -18,17 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
-app.use('/api/v1/fixtures/',fixtures);
-app.use('/api/v1/results/',results);
-app.use('/api/v1/leaderboard/',leaderboard);
-
-
-
-app.get("/", (req, res) => {
-    res.send("OK");
-});
-
-
+app.use("/api", appRouter);
 
 const PORT = process.env.PORT || 6969; //8000 or 6969, 8000 default
 app.listen(PORT, async () => {
@@ -39,5 +26,4 @@ app.listen(PORT, async () => {
     } catch (err) {
         console.log("Error while starting server: ", err);
     }
-
 });

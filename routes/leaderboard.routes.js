@@ -1,15 +1,15 @@
 import express from "express";
 
-const router=express.Router()
+const router = express.Router();
 
-router.get("/readleaderboard", (req, res) => {
+router.get("/", (req, res) => {
     res.send("Leaderboard");
-})
+});
 
-router.post("/createleaderboard", );
+router.post("/create");
 
-router.patch("/updateleaderboard/:id", );
+router.patch("/update/:id");
 
-router.delete("/deleteleaderboard/:id", );
+router.delete("/delete/:id");
 
 export default router;

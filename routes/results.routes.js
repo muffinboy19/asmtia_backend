@@ -1,21 +1,21 @@
 import express from "express";
 
-const router=express.Router()
+const router = express.Router();
 
-router.get("/readallresults", (req, res) => {
+router.get("/", (req, res) => {
     res.send("Get all results");
-})
+});
 
-router.post("/createcricketresult", );
-router.post("/createfootballresult",);
-router.post("/createathleticresult", );
+router.post("/cricket");
+router.post("/football");
+router.post("/athletics");
 
-router.patch("/updatecricketresult/:id", );
-router.patch("/updatefootballresult/:id", );
-router.patch("/updateathleticresult/:id", );
+router.patch("/cricket/:id");
+router.patch("/football/:id");
+router.patch("/athletics/:id");
 
-router.delete("/deletecricketresult/:id", );
-router.delete("/deletefootballresult/:id", );
-router.delete("/deleteathleticresult/:id", );
+router.delete("/cricket/:id");
+router.delete("/football/:id");
+router.delete("/athletics/:id");
 
 export default router;
