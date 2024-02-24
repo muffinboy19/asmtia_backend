@@ -6,6 +6,7 @@ import { connectDB } from "./config/db.config.js";
 
 import leaderboard from "./routes/leaderboard.routes.js";
 import results from "./routes/results.routes.js";
+import fixtures from "./routes/fixture.routes.js";
 
 dotenv.config();
 
@@ -17,9 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
-//app.use('/api/v1/fixtures/',);
+app.use('/api/v1/fixtures/',fixtures);
 app.use('/api/v1/results/',results);
 app.use('/api/v1/leaderboard/',leaderboard);
+
 
 
 app.get("/", (req, res) => {
