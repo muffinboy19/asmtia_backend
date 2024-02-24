@@ -1,6 +1,3 @@
-
-
-
 export const getResultsController= async (req,res)=>{
     try {
         const data=await resultModel.find({});
