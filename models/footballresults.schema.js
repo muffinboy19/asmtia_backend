@@ -32,8 +32,9 @@ const footballSchema = new Schema({
         type: Schema.Types.String,
         default: "Relay - 500m",
     },
-    Point: {
+    Score:{
         type: Schema.Types.String,
+        ref: "Score",
         default: "4 - 6",
     },
 });
