@@ -12,6 +12,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Routes
+
+app.use('/api/v1/fixtures/',);
+app.use('/api/v1/results/',);
+app.use('/api/v1/leaderboard/',);
+
+
 app.get("/", (req, res) => {
     res.send("OK");
 });
