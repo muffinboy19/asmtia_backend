@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose
 
-const leaderboardSchema = new Schema(
+const leaderboardEntrySchema = new Schema(
     {
         Name: {
             type: Schema.Types.String,
@@ -20,6 +20,11 @@ const leaderboardSchema = new Schema(
         }
     }
 
+)
+const leaderboardSchema = new Schema(
+    {
+        Leaderboard: [leaderboardEntrySchema]
+    }
 )
 const Leaderboard = model("Leaderboard", leaderboardSchema);
 
