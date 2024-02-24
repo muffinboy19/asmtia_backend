@@ -8,8 +8,8 @@ router.get("/readfixture", (req, res) => {
 
 router.post("/createfixture", );
 
-router.patch("/updatefixture", );
+router.patch("/updatefixture/:id", );
 
-router.delete("/deletefixture", );
+router.delete("/deletefixture/:id", );
 
 export default router;

@@ -8,8 +8,8 @@ router.get("/readleaderboard", (req, res) => {
 
 router.post("/createleaderboard", );
 
-router.patch("/updateleaderboard", );
+router.patch("/updateleaderboard/:id", );
 
-router.delete("/deleteleaderboard", );
+router.delete("/deleteleaderboard/:id", );
 
 export default router;

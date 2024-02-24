@@ -10,12 +10,12 @@ router.post("/createcricketresult", );
 router.post("/createfootballresult",);
 router.post("/createathleticresult", );
 
-router.patch("/updatecricketresult", );
-router.patch("/updatefootballresult", );
-router.patch("/updateathleticresult", );
+router.patch("/updatecricketresult/:id", );
+router.patch("/updatefootballresult/:id", );
+router.patch("/updateathleticresult/:id", );
 
-router.delete("/deletecricketresult", );
-router.delete("/deletefootballresult", );
-router.delete("/deleteathleticresult", );
+router.delete("/deletecricketresult/:id", );
+router.delete("/deletefootballresult/:id", );
+router.delete("/deleteathleticresult/:id", );
 
 export default router;
