@@ -16,7 +16,7 @@ export const getLeaderboard = async (req, res) => {
 
 export const updateLeaderboardEntry = async (req, res) => {
     const { id } = req.params;
-    const newPoints = req.body.Points;
+    const newPoints = req.body.points;
 
     try {
         // If not valid
@@ -32,11 +32,9 @@ export const updateLeaderboardEntry = async (req, res) => {
         updatedEntry.save();
         console.log(updatedEntry);
         if (!updatedEntry)
-            return res
-                .status(404)
-                .json({
-                    message: `Leaderboard entry not found with id: ${id}`,
-                });
+            return res.status(404).json({
+                message: `Leaderboard entry not found with id: ${id}`,
+            });
 
         res.status(200).json(updatedEntry);
     } catch (error) {
