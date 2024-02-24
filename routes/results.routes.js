@@ -1,5 +1,5 @@
 import express from "express";
-import { createAthleteResultController, createCricketResultController, createFootballResultController, getResultsController, updateAtheleteResultController, updateCricketResultController, updateFootballResultController } from "../controllers/results.controllers.js";
+import { createAthleteResultController, createCricketResultController, createFootballResultController, deleteAthleteResultController, deleteCricketResultController, deleteFootballResultController, getResultsController, updateAtheleteResultController, updateCricketResultController, updateFootballResultController } from "../controllers/results.controllers.js";
 
 const router = express.Router();
 
@@ -13,8 +13,8 @@ router.patch("/cricket/:id",updateCricketResultController);
 router.patch("/football/:id",updateFootballResultController);
 router.patch("/athletics/:id",updateAtheleteResultController);
 
-// router.delete("/cricket/:id");
-// router.delete("/football/:id");
-// router.delete("/athletics/:id");
+router.delete("/cricket/:id",deleteCricketResultController);
+router.delete("/football/:id",deleteFootballResultController);
+router.delete("/athletics/:id",deleteAthleteResultController);
 
 export default router;

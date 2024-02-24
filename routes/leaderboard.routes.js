@@ -3,6 +3,6 @@ import { getLeaderboard, updateLeaderboardEntry } from "../controllers/leaderboa
 const router = express.Router()
 
 router.get("/", getLeaderboard);
-router.patch("/:id", updateLeaderboardEntry);
+router.post("/:id", updateLeaderboardEntry);
 
 export default router;

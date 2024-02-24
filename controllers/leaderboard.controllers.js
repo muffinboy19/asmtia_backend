@@ -23,13 +23,15 @@ export const updateLeaderboardEntry = async (req, res) => {
         // If not valid
         if (!mongoose.Types.ObjectId.isValid(id))
             return res.status(404).json({ message: `Invalid entry id: ${id}` });
-
+        
         const updatedEntry = await Leaderboard.findByIdAndUpdate(
             id,
             { Points: newPoints },
             { new: true }
         );
 
+        updatedEntry.save();
+        console.log(updatedEntry);
         if (!updatedEntry)
             return res.status(404).json({ message: `Leaderboard entry not found with id: ${id}` });
 

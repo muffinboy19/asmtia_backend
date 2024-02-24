@@ -37,12 +37,11 @@ export const updateFootballResultController= async (req,res)=>{
         if(!ClgImg1||!ClgImg2||!ClgName1||!ClgName2|| !Date||!GroupStage||!MatchName||!Score){
             return res.status(500).send({error:"Insufficient Data"});
         }
-        const newResult= await new FootballResults.findByIdAndUpdate({id:id},{
-            ...req.fields,
+        const newResult= await FootballResults.findByIdAndUpdate(id,{
+            ...req.body,
         },{new:true});
         await newResult.save();
-        
-        
+    
         res.status(201).send({
             success:true,
             message:'Result Updated',
@@ -66,8 +65,8 @@ export const updateCricketResultController= async (req,res)=>{
         if(!ClgImg1||!ClgImg2||!ClgName1||!ClgName2|| !Date||!GroupStage||!MatchName||!Score1 ||!Score2||!Over1||!Over2){
             return res.status(500).send({error:"Insufficient Data"});
         }
-        const newResult= await new CricketResults.findByIdAndUpdate({id:id},{
-            ...req.fields,
+        const newResult= await CricketResults.findByIdAndUpdate(id,{
+            ...req.body,
         },{new:true});
         await newResult.save();
         res.status(201).send({
@@ -92,8 +91,8 @@ export const updateAtheleteResultController= async (req,res)=>{
         if(!Date||!GroupStage||!MatchName||!Player1 ||!Player2||!Player3){
             return res.status(500).send({error:"Insufficient Data"});
         }
-        const newResult= await new AthleteResults.findByIdAndUpdate({id:id},{
-            ...req.fields,
+        const newResult= await AthleteResults.findByIdAndUpdate(id,{
+            ...req.body,
         },{new:true});
         await newResult.save();
         res.status(201).send({
@@ -220,3 +219,58 @@ export const createCricketResultController=async (req,res)=>{
         })
     }
 }
+
+
+
+
+
+export const deleteAthleteResultController= async (req,res)=>{
+    try {
+        const prod=await AthleteResults.findByIdAndDelete(req.params.id);
+        res.status(200).send({
+            success:true,
+            message:"Successfully Deleted",
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success:false,
+            message:"Error in Delete",
+            error
+        })
+    }
+};
+
+
+export const deleteFootballResultController= async (req,res)=>{
+    try {
+        const prod=await FootballResults.findByIdAndDelete(req.params.id);
+        res.status(200).send({
+            success:true,
+            message:"Successfully Deleted",
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success:false,
+            message:"Error in Delete",
+            error
+        })
+    }
+};
+export const deleteCricketResultController= async (req,res)=>{
+    try {
+        const prod=await CricketResults.findByIdAndDelete(req.params.id);
+        res.status(200).send({
+            success:true,
+            message:"Successfully Deleted",
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success:false,
+            message:"Error in Delete",
+            error
+        })
+    }
+};
