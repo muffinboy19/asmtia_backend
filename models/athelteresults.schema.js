@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 //this is the second type of model for fixtures
 const athleteSchema = new Schema({
-    
+    Type:{
+        type: Schema.Types.String,
+        ref: "Type",
+        default: "athelete",
+    },
     Date:{
         type: Schema.Types.String,
         ref: "Date",

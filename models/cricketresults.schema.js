@@ -5,7 +5,7 @@ const cricketSchema = new Schema({
     Type:{
         type: Schema.Types.String,
         ref: "Type",
-        default: "athelete",
+        default: "cricket",
     },
     ClgImg1: {
         type: Schema.Types.String,
