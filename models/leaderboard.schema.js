@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
-const leaderboardEntrySchema = new Schema({
+const leaderboardSchema = new Schema({
     Name: {
         type: Schema.Types.String,
         default: "IIIT-A",
@@ -16,9 +16,7 @@ const leaderboardEntrySchema = new Schema({
         default: 20,
     },
 });
-const leaderboardSchema = new Schema({
-    Leaderboard: [leaderboardEntrySchema],
-});
+
 const Leaderboard = model("Leaderboard", leaderboardSchema);
 
 export default Leaderboard;

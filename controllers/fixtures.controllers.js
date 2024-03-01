@@ -5,7 +5,19 @@ import {
     response_500,
 } from "../utils/responseCodes.js";
 
+export async function getAllFixtures(req, res) {
+    try {
+        const fixtures = await Fixture.find({});
+
+        response_200(res, "Successfully fetched all fixtures", fixtures);
+    } catch (err) {
+        console.log(err);
+        response_500(res, "Error occurred while fetching all fixtures", err);
+    }
+}
+
 export async function getBySport(req, res) {
+    // ALL SPORT NAMES SHOULD BE LOWER CASE IN THE DROPDOWN
     const sportName = req.params.sport;
     try {
         const sportFixtures = await Fixture.find({
@@ -56,7 +68,7 @@ export async function createFixture(req, res) {
         const day = req.body.day;
         // date
         const date = req.body.date;
-        // tinymce
+        // tinymce (like teamA, teamB, time)
         const data = req.body.htmlData;
 
         const addFixture = await Fixture.create({
