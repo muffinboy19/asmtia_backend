@@ -26,7 +26,7 @@ export const updateLeaderboardEntry = async (req, res) => {
         
         const updatedEntry = await Leaderboard.findByIdAndUpdate(
             id,
-            { Points: newPoints },
+            { $set: req.body },
             { new: true }
         );
 

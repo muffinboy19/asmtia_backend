@@ -5,9 +5,9 @@ import CricketResults from "../models/cricketresults.schema.js";
 export const getResultsController= async (req,res)=>{
     try {
 
-        const footballResults= await FootballResults.find({});
-        const cricketResults= await CricketResults.find({});
-        const athleteResults= await AthleteResults.find({});
+        const footballResults = await FootballResults.find({});
+        const cricketResults = await CricketResults.find({});
+        const athleteResults = await AthleteResults.find({});
 
         const data = [];
         data.push(...footballResults);
@@ -124,7 +124,9 @@ export const createFootballResultController=async (req,res)=>{
                     Date,
                     GroupStage,
                     MatchName, 
-                    Score
+                    Score,
+                    Type:"football"
+
                 })
                 .save();
                 res.status(201).send({
@@ -160,7 +162,8 @@ export const createAthleteResultController=async (req,res)=>{
                     MatchName,
                     Player1,
                     Player2,
-                    Player3
+                    Player3,
+                    Type:"athlete"
                 })
                 .save();
                 res.status(201).send({
@@ -202,7 +205,8 @@ export const createCricketResultController=async (req,res)=>{
                     Over1,
                     Over2,
                     Score1,
-                    Score2
+                    Score2,
+                    Type:"cricket"
                 })
                 .save();
                 res.status(201).send({
