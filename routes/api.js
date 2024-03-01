@@ -1,6 +1,7 @@
 import { response_200 } from "../utils/responseCodes.js";
 import fixtureRouter from "./fixtures.routes.js";
 import leaderboardRouter from "./leaderboard.routes.js";
+import empLeaderboardRouter from "./empLeaderboard.routes.js";
 import resultsRouter from "./results.routes.js";
 import express from "express";
 
@@ -11,6 +12,7 @@ router.get("/", (req, res) => {
 });
 router.use("/fixtures", fixtureRouter);
 router.use("/leaderboard", leaderboardRouter);
+router.use("/emp/leaderboard", empLeaderboardRouter);
 router.use("/results", resultsRouter);
 
 export default router;
