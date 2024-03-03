@@ -1,7 +1,7 @@
 import AthleteResults from "../models/athelteresults.schema.js";
 import FootballResults from "../models/footballresults.schema.js";
 import CricketResults from "../models/cricketresults.schema.js";
-import { setCache } from "../utils/cache.js";
+import { setCache, getCache } from "../utils/cache.js";
 
 export const getResultsController = async (req, res) => {
   try {

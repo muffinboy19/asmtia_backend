@@ -4,6 +4,7 @@ import {
   response_404,
   response_500,
 } from "../utils/responseCodes.js";
+import { getCache, setCache } from "../utils/cache.js";
 
 export async function getAllFixtures(req, res) {
   try {

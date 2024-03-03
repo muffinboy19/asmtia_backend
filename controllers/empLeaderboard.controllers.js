@@ -1,5 +1,6 @@
 import EmpLeaderboard from "../models/empLeaderboard.scehma.js";
 import mongoose from "mongoose";
+import { getCache, setCache } from "../utils/cache.js";
 export const getLeaderboard = async (req, res) => {
   try {
     const cached = await getCache("empLeaderboard");
