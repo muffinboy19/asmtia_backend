@@ -34,13 +34,16 @@ export async function getAllFixtures(req, res) {
 
 export const getUpcomingFixtures = async (req, res) => {
     try {
-        const fixtures = await Fixture.find({});
+        
+        const fixt = await Fixture.find({});
         const number =5;
-        fixtures.sort((a, b) => a.createdAt - b.createdAt);
+        fixt.sort((a, b) => a.createdAt - b.createdAt);
+        const fixtures=fixt.slice(0, number);
+        
         response_200(
             res,
             "Successfully fetching upcoming fixtures (recently created)",
-            fixtures.slice(0, number)
+            fixtures
         );
     } catch (err) {
         console.log(err);
