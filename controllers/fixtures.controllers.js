@@ -32,6 +32,26 @@ export async function getAllFixtures(req, res) {
     }
 }
 
+export const getUpcomingFixtures = async (req, res) => {
+    try {
+        const fixtures = await Fixture.find({});
+        const number = req.query.amount;
+        fixtures.sort((a, b) => a.createdAt - b.createdAt);
+        response_200(
+            res,
+            "Successfully fetching upcoming fixtures (recently created)",
+            fixtures.slice(0, number)
+        );
+    } catch (err) {
+        console.log(err);
+        response_500(
+            res,
+            "Error occurred while fetching upcoming fixtures",
+            err
+        );
+    }
+};
+
 export async function getBySport(req, res) {
     // ALL SPORT NAMES SHOULD BE LOWER CASE IN THE DROPDOWN
     const sportName = req.params.sport;

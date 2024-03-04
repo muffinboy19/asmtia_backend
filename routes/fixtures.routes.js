@@ -4,6 +4,7 @@ import {
     getAllFixtures,
     getByDay,
     getBySport,
+    getUpcomingFixtures,
     updateFixture,
 } from "../controllers/fixtures.controllers.js";
 import express from "express";
@@ -11,6 +12,7 @@ import express from "express";
 const router = express.Router();
 
 router.get("/", getAllFixtures);
+router.get("/upcoming", getUpcomingFixtures);
 router.get("/:sport", getBySport);
 router.get("/:sport/:day", getByDay);
 router.post("/create", createFixture);
