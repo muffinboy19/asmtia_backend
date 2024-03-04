@@ -22,4 +22,4 @@ const headMiddleware = (req, res, next) => {
     }
 };
 
-export { userMiddleware, headMiddleware, executiveMiddleware };
+export { headExecMiddleware, headMiddleware, executiveMiddleware };
