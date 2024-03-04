@@ -35,7 +35,7 @@ export async function getAllFixtures(req, res) {
 export const getUpcomingFixtures = async (req, res) => {
     try {
         const fixtures = await Fixture.find({});
-        const number = req.query.amount;
+        const number =5;
         fixtures.sort((a, b) => a.createdAt - b.createdAt);
         response_200(
             res,
