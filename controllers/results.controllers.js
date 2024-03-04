@@ -46,15 +46,15 @@ export const getResultsController = async (req, res) => {
                 data: JSON.parse(cached),
             });
         } else {
-            const footballResults = await FootballResults.find({});
-            const cricketResults = await CricketResults.find({});
-            const athleteResults = await AthleteResults.find({});
+            const footballResults = await FootballResults.find({}).sort({createdAt:-1});
+            const cricketResults = await CricketResults.find({}).sort({createdAt:-1});
+            const athleteResults = await AthleteResults.find({}).sort({createdAt:-1});
 
             const data = [];
             data.push(...footballResults);
             data.push(...cricketResults);
             data.push(...athleteResults);
-
+            
             await setCache("results", JSON.stringify(data));
 
             res.status(200).send({
@@ -84,6 +84,7 @@ export const updateFootballResultController = async (req, res) => {
             GroupStage,
             MatchName,
             Score,
+            SportName,
         } = req.body;
         if (
             !ClgImg1 ||
@@ -93,7 +94,8 @@ export const updateFootballResultController = async (req, res) => {
             !Date ||
             !GroupStage ||
             !MatchName ||
-            !Score
+            !Score ||
+            !SportName
         ) {
             return res.status(500).send({ error: "Insufficient Data" });
         }
@@ -135,6 +137,7 @@ export const updateCricketResultController = async (req, res) => {
             Over2,
             Score1,
             Score2,
+            SportName,
         } = req.body;
         if (
             !ClgImg1 ||
@@ -147,7 +150,8 @@ export const updateCricketResultController = async (req, res) => {
             !Score1 ||
             !Score2 ||
             !Over1 ||
-            !Over2
+            !Over2 ||
+            !SportName
         ) {
             return res.status(500).send({ error: "Insufficient Data" });
         }
@@ -176,7 +180,7 @@ export const updateCricketResultController = async (req, res) => {
 export const updateAtheleteResultController = async (req, res) => {
     try {
         const id = req.params.id;
-        const { Date, GroupStage, MatchName, Player1, Player2, Player3 } =
+        const { Date, GroupStage, MatchName, Player1, Player2, Player3, SportName } =
             req.body;
         if (
             !Date ||
@@ -184,7 +188,8 @@ export const updateAtheleteResultController = async (req, res) => {
             !MatchName ||
             !Player1 ||
             !Player2 ||
-            !Player3
+            !Player3 ||
+            !SportName
         ) {
             return res.status(500).send({ error: "Insufficient Data" });
         }
@@ -221,6 +226,7 @@ export const createFootballResultController = async (req, res) => {
             GroupStage,
             MatchName,
             Score,
+            SportName,
         } = req.body;
         if (
             !ClgImg1 ||
@@ -230,7 +236,8 @@ export const createFootballResultController = async (req, res) => {
             !Date ||
             !GroupStage ||
             !MatchName ||
-            !Score
+            !Score ||
+            !SportName
         ) {
             return res.status(500).send({ error: "Insufficient Data" });
         }
@@ -243,6 +250,7 @@ export const createFootballResultController = async (req, res) => {
             GroupStage,
             MatchName,
             Score,
+            SportName,
             Type: "football",
         }).save();
         res.status(201).send({
@@ -262,7 +270,7 @@ export const createFootballResultController = async (req, res) => {
 export const createAthleteResultController = async (req, res) => {
     try {
         console.log(req.body);
-        const { Date, GroupStage, MatchName, Player1, Player2, Player3 } =
+        const { Date, GroupStage, MatchName, Player1, Player2, Player3, SportName } =
             req.body;
         console.log(Date);
         if (!Date) return res.status(500).send({ error: "Date" });
@@ -272,7 +280,8 @@ export const createAthleteResultController = async (req, res) => {
             !MatchName ||
             !Player1 ||
             !Player2 ||
-            !Player3
+            !Player3 ||
+            !SportName
         ) {
             return res.status(500).send({ error: "Insufficient Data3" });
         }
@@ -283,6 +292,7 @@ export const createAthleteResultController = async (req, res) => {
             Player1,
             Player2,
             Player3,
+            SportName,
             Type: "athlete",
         }).save();
         res.status(201).send({
@@ -315,6 +325,7 @@ export const createCricketResultController = async (req, res) => {
             Over2,
             Score1,
             Score2,
+            SportName
         } = req.body;
         if (
             !ClgImg1 ||
@@ -327,7 +338,8 @@ export const createCricketResultController = async (req, res) => {
             !Score1 ||
             !Score2 ||
             !Over1 ||
-            !Over2
+            !Over2 ||
+            !SportName
         ) {
             return res.status(500).send({ error: "Insufficient Data" });
         }
@@ -344,6 +356,7 @@ export const createCricketResultController = async (req, res) => {
             Over2,
             Score1,
             Score2,
+            SportName,
             Type: "cricket",
         }).save();
         res.status(201).send({

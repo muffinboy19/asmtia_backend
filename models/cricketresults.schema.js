@@ -7,6 +7,11 @@ const cricketSchema = new Schema({
         ref: "Type",
         default: "cricket",
     },
+    SportName:{
+        type: Schema.Types.String,
+        ref: "SportName",
+        default: "cricket",
+    },
     ClgImg1: {
         type: Schema.Types.String,
         default:
@@ -54,7 +59,7 @@ const cricketSchema = new Schema({
         type: Schema.Types.String,
         default: "180/2",
     },
-});
+}, { timestamps: true });
 
 const CricketResults = model("CricketResults", cricketSchema);
 export default CricketResults;

@@ -7,6 +7,11 @@ const footballSchema = new Schema({
         ref: "Type",
         default: "football",
     },
+    SportName:{
+        type: Schema.Types.String,
+        ref: "SportName",
+        default: "football",
+    },
     ClgImg1: {
         type: Schema.Types.String,
         default:
@@ -42,7 +47,7 @@ const footballSchema = new Schema({
         ref: "Score",
         default: "4 - 6",
     },
-});
+}, { timestamps: true });
 
 const FootballResults = model("FootballResults", footballSchema);
 export default FootballResults;

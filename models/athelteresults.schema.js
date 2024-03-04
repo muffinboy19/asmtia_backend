@@ -7,6 +7,11 @@ const athleteSchema = new Schema({
         ref: "Type",
         default: "athelete",
     },
+    SportName:{
+        type: Schema.Types.String,
+        ref: "SportName",
+        default: "athletics",
+    },
     Date:{
         type: Schema.Types.String,
         ref: "Date",
@@ -37,7 +42,7 @@ const athleteSchema = new Schema({
         ref: "Player3",
         default: "Rahul",
     },
-});
+}, { timestamps: true });
 
 const AthleteResults = model("AthleteResults", athleteSchema);
 export default AthleteResults;
