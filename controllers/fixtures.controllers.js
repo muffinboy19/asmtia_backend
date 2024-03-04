@@ -18,12 +18,12 @@ export async function getAllFixtures(req, res) {
             });
         } else {
             const fixtures = await Fixture.find({});
-            await setCache("allFixtures", JSON.stringify(fixtures));
+            
             fixtures.sort(function (a, b) {
                 return a.Day - b.Day;
             });
             console.log(fixtures);
-
+            await setCache("allFixtures", JSON.stringify(fixtures));
             response_200(res, "Successfully fetched all fixtures", fixtures);
         }
     } catch (err) {
@@ -34,17 +34,26 @@ export async function getAllFixtures(req, res) {
 
 export const getUpcomingFixtures = async (req, res) => {
     try {
-        
-        const fixt = await Fixture.find({});
-        const number =5;
-        fixt.sort((a, b) => a.createdAt - b.createdAt);
-        const fixtures=fixt.slice(0, number);
-        
-        response_200(
-            res,
-            "Successfully fetching upcoming fixtures (recently created)",
-            fixtures
-        );
+        const cached = await getCache("upcomingFixtures");
+        if(cached){
+            return res.status(200).send({
+                success: true,
+                message: "Successfully fetching upcoming fixtures (recently created)",
+                data: JSON.parse(cached),
+            });
+        }
+        else{
+            const fixt = await Fixture.find({});
+            const number =5;
+            fixt.sort((a, b) => a.createdAt - b.createdAt);
+            const fixtures=fixt.slice(0, number);
+            await setCache("upcomingFixtures", JSON.stringify(fixtures));
+            response_200(
+                res,
+                "Successfully fetching upcoming fixtures (recently created)",
+                fixtures
+            );
+        }
     } catch (err) {
         console.log(err);
         response_500(
