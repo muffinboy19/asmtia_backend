@@ -6,6 +6,10 @@ const userSchema = new Schema({
         type: Schema.Types.String,
         default: "User",
     },
+    EnrollmentNo:{
+        type: Schema.Types.String,
+        default: "IIT2021001"
+    },
     Role: {
         type: String,
         enum: ['volunteer', 'head', 'executive'],
