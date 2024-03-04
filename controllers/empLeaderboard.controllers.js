@@ -1,4 +1,6 @@
 import EmpLeaderboard from "../models/empLeaderboard.scehma.js";
+import LogDetails from "../models/logDetails.schema.js";
+import { User } from "../models/user.schema.js";
 import mongoose from "mongoose";
 import { getCache, setCache } from "../utils/cache.js";
 export const getLeaderboard = async (req, res) => {
@@ -47,6 +49,11 @@ export const updateLeaderboardEntry = async (req, res) => {
         message: `Leaderboard entry not found with id: ${id}`,
       });
 
+    const workingUser = await User.findById(req.user.id);
+    const newLog = await LogDetails.create({
+      user: workingUser,
+      typeChanged: 'leaderboard',
+    });
     res.status(200).json(updatedEntry);
   } catch (error) {
     res.status(500).json({ message: error.message });

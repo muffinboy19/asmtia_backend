@@ -15,4 +15,4 @@ const logSchema = new Schema({
 
 const LogDetails = model("LogDetails", logSchema);
 
-export default lo;
+export default LogDetails;
