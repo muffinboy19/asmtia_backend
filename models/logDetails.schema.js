@@ -10,8 +10,7 @@ const logSchema = new Schema({
         type: String,
         enum: ['result', 'fixture', 'leaderboard']
     },
-    timestamps: true
-});
+},{timestamps: true});
 
 const LogDetails = model("LogDetails", logSchema);
 
