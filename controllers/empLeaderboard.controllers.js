@@ -3,6 +3,11 @@ import LogDetails from "../models/logDetails.schema.js";
 import User from "../models/user.schema.js";
 import mongoose from "mongoose";
 import { getCache, setCache } from "../utils/cache.js";
+import {
+    response_200,
+    response_404,
+    response_500,
+} from "../utils/responseCodes.js";
 export const getLeaderboard = async (req, res) => {
     try {
         const cached = await getCache("empLeaderboard");
@@ -34,28 +39,35 @@ export const updateLeaderboardEntry = async (req, res) => {
     try {
         // If not valid
         if (!mongoose.Types.ObjectId.isValid(id))
-            return res.status(404).json({ message: `Invalid entry id: ${id}` });
+            return response_404(res, `Invalid entry id: ${id}`);
 
         const updatedEntry = await EmpLeaderboard.findByIdAndUpdate(
             id,
-            { $set: req.body },
+            { Points: newPoints },
             { new: true }
         );
 
-        updatedEntry.save();
         console.log(updatedEntry);
         if (!updatedEntry)
-            return res.status(404).json({
-                message: `Leaderboard entry not found with id: ${id}`,
-            });
+            return response_404(
+                res,
+                `Leaderboard entry with entry id not found: ${id}`
+            );
 
-        const workingUser = await User.findById(req.user.id);
         const newLog = await LogDetails.create({
-            User: workingUser,
+            User: req.user.id,
             typeChanged: "leaderboard",
         });
-        res.status(200).json(updatedEntry, { Log_Details: newLog });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+        response_200(
+            res,
+            "Successfully updated employee leaderboard id",
+            updatedEntry
+        );
+    } catch (err) {
+        response_500(
+            res,
+            "Error occurred while updating employee leaderboard",
+            err
+        );
     }
 };
