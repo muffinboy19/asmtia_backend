@@ -4,12 +4,15 @@ const { Schema, model } = mongoose;
 const userSchema = new Schema({
     Name: {
         type: Schema.Types.String,
-        default: "IIIT-A",
+        default: "User",
     },
     Role: {
         type: String,
-        enum: ['Volunteer', 'Head', 'Executive'],
-        default: 'Volunteer' // Set default role as 'user'
+        enum: ['volunteer', 'head', 'executive'],
+        default: 'volunteer' 
+    },
+    Password:{
+        type:String
     }
 });
 

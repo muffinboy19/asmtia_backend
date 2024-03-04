@@ -39,7 +39,6 @@ export const updateLeaderboardEntry = async (req, res) => {
       { $set: req.body },
       { new: true }
     );
-
     updatedEntry.save();
     console.log(updatedEntry);
     if (!updatedEntry)
@@ -52,3 +51,6 @@ export const updateLeaderboardEntry = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// leader - head exec
+// fixtures,result - v
