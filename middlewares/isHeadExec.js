@@ -1,35 +1,74 @@
-const headExecMiddleware = (req, res, next) => {
-    const user = JSON.parse(req.cookies.user);
-    console.log("=====================================\n\n");
-    console.log("user: ", user);
-    console.log("=====================================\n\n");
-    if (user.role === "head" || user.role === "executive") {
-        req.user = { id: user.id, role: user.role };
+import jwt from "jsonwebtoken";
+import { response_500 } from "../utils/responseCodes.js";
+const SECRET_KEY = "h92h398n9hf7sgbrf8hia7";
 
-        next();
-    } else {
-        return res.status(403).json({ message: "You are not authorized" });
+const headExecMiddleware = (req, res, next) => {
+    try {
+        const user = jwt.verify(req.cookies.token, SECRET_KEY);
+        console.log("=====================================\n\n");
+        console.log("user: ", user);
+        console.log("=====================================\n\n");
+        if (user.role === "head" || user.role === "executive") {
+            req.user = { id: user.id, role: user.role };
+
+            next();
+        } else {
+            return res.status(403).json({ message: "You are not authorized" });
+        }
+    } catch (err) {
+        console.log(
+            "Error occurred while parsing request in middleware (headExec)"
+        );
+        response_500(
+            res,
+            "Error occurred while parsing request in middleware (headExec)",
+            err
+        );
     }
 };
 
 const executiveMiddleware = (req, res, next) => {
-    const user = JSON.parse(req.cookies.user);
-    if (user.role === "executive") {
-        req.user = { id: user.id, role: user.role };
+    try {
+        const user = jwt.verify(req.cookies.token, SECRET_KEY);
 
-        next();
-    } else {
-        return res.status(403).json({ message: "You are not authorized" });
+        if (user.role === "executive") {
+            req.user = { id: user.id, role: user.role };
+
+            next();
+        } else {
+            return res.status(403).json({ message: "You are not authorized" });
+        }
+    } catch (err) {
+        console.log(
+            "Error occurred while parsing request in middleware (executive)"
+        );
+        response_500(
+            res,
+            "Error occurred while parsing request in middleware (executive)",
+            err
+        );
     }
 };
 
 const headMiddleware = (req, res, next) => {
-    const user = JSON.parse(req.cookies.user);
-    if (user.role === "head") {
-        req.user = { id: user.id, role: user.role };
-        next();
-    } else {
-        return res.status(403).json({ message: "You are not authorized" });
+    try {
+        const user = jwt.verify(req.cookies.token, SECRET_KEY);
+
+        if (user.role === "head") {
+            req.user = { id: user.id, role: user.role };
+            next();
+        } else {
+            return res.status(403).json({ message: "You are not authorized" });
+        }
+    } catch (err) {
+        console.log(
+            "Error occurred while parsing request in middleware (head)"
+        );
+        response_500(
+            res,
+            "Error occurred while parsing request in middleware (head)",
+            err
+        );
     }
 };
 

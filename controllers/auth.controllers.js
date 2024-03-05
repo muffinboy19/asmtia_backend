@@ -6,6 +6,8 @@ import {
     response_500,
 } from "../utils/responseCodes.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+const SECRET_KEY = "h92h398n9hf7sgbrf8hia7";
 const saltRounds = 10;
 
 export const loginUser = async (req, res) => {
@@ -24,11 +26,14 @@ export const loginUser = async (req, res) => {
                 .then(function (result) {
                     if (result) {
                         res.cookie(
-                            "user",
-                            JSON.stringify({
-                                id: loginUser._id,
-                                role: loginUser.Role,
-                            })
+                            "token",
+                            jwt.sign(
+                                {
+                                    id: loginUser._id,
+                                    role: loginUser.Role,
+                                },
+                                SECRET_KEY
+                            )
                         );
                         response_200(res, "Successfully logged in user", {
                             user: loginUser,
