@@ -25,18 +25,17 @@ export const loginUser = async (req, res) => {
                 .compare(password, loginUser.Password)
                 .then(function (result) {
                     if (result) {
-                        res.cookie(
-                            "token",
-                            jwt.sign(
-                                {
-                                    id: loginUser._id,
-                                    role: loginUser.Role,
-                                },
-                                SECRET_KEY
-                            )
-                        );
                         response_200(res, "Successfully logged in user", {
-                            user: loginUser,
+                            user: {
+                                ...loginUser._doc,
+                                token: jwt.sign(
+                                    {
+                                        id: loginUser._id,
+                                        role: loginUser.Role,
+                                    },
+                                    SECRET_KEY
+                                ),
+                            },
                         });
                     } else {
                         console.log(

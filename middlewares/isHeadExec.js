@@ -4,7 +4,8 @@ const SECRET_KEY = "h92h398n9hf7sgbrf8hia7";
 
 const headExecMiddleware = (req, res, next) => {
     try {
-        const user = jwt.verify(req.cookies.token, SECRET_KEY);
+        const token = req.headers["authorization"].split(" ")[1];
+        const user = jwt.verify(token, SECRET_KEY);
         console.log("=====================================\n\n");
         console.log("user: ", user);
         console.log("=====================================\n\n");
@@ -29,7 +30,8 @@ const headExecMiddleware = (req, res, next) => {
 
 const executiveMiddleware = (req, res, next) => {
     try {
-        const user = jwt.verify(req.cookies.token, SECRET_KEY);
+        const token = req.headers["authorization"].split(" ")[1];
+        const user = jwt.verify(token, SECRET_KEY);
 
         if (user.role === "executive") {
             req.user = { id: user.id, role: user.role };
@@ -52,8 +54,8 @@ const executiveMiddleware = (req, res, next) => {
 
 const headMiddleware = (req, res, next) => {
     try {
-        const user = jwt.verify(req.cookies.token, SECRET_KEY);
-
+        const token = req.headers["authorization"].split(" ")[1];
+        const user = jwt.verify(token, SECRET_KEY);
         if (user.role === "head") {
             req.user = { id: user.id, role: user.role };
             next();
