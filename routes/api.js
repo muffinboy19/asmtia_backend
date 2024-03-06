@@ -6,8 +6,9 @@ import resultsRouter from "./results.routes.js";
 import authRouter from "./auth.routes.js";
 import logRouter from "./log.routes.js";
 import teamAsmitaRouter from "./teamAsmita.routes.js";
-import eventRouter from "./events.routes.js"
-import aboutRouter from "./about.routes.js"
+import eventRouter from "./events.routes.js";
+import aboutRouter from "./about.routes.js";
+import galleryRouter from "./gallery.routes.js";
 import express from "express";
 import {
     executiveMiddleware,
@@ -28,6 +29,7 @@ router.use("/logs", headMiddleware, logRouter);
 router.use("/teamAsmita", teamAsmitaRouter);
 router.use("/events", eventRouter);
 router.use("/about", aboutRouter);
+router.use("/gallery",galleryRouter);
 
 
 export default router;
