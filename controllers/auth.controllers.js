@@ -15,7 +15,7 @@ export const loginUser = async (req, res) => {
         const enrollment = req.body.enrollment;
         const password = req.body.password;
         const loginUser = await User.findOne({
-            EnrollmentNo: enrollment,
+            EnrollmentNo: enrollment.toLowerCase(),
         });
         if (!loginUser) {
             console.log("User does not exist.");
@@ -33,7 +33,8 @@ export const loginUser = async (req, res) => {
                                         id: loginUser._id,
                                         role: loginUser.Role,
                                     },
-                                    SECRET_KEY
+                                    SECRET_KEY,
+                                    { expiresIn: "24h" }
                                 ),
                             },
                         });
@@ -67,7 +68,7 @@ export const registerUser = async (req, res) => {
             bcrypt.hash(password, saltRounds).then(async function (hash) {
                 const createdUser = await User.create({
                     Name: name,
-                    EnrollmentNo: enrollment,
+                    EnrollmentNo: enrollment.toLowerCase(),
                     Password: hash,
                     Role: role,
                 });

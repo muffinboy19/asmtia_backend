@@ -35,7 +35,7 @@ export const getLeaderboard = async (req, res) => {
 export const updateLeaderboardEntry = async (req, res) => {
     const { id } = req.params;
     const newPoints = req.body.points;
-
+    console.log("req.user: ", req.user);
     try {
         // If not valid
         if (!mongoose.Types.ObjectId.isValid(id))
