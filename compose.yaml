@@ -14,7 +14,7 @@ services:
     environment:
       PORT: 8000
       NODE_ENV: production
-      MONGO_URI: mongodb://root:example@mongodb:27017
+      MONGO_URI: mongodb://QByaxxm01xQHTY0:EkdjYC2a8g51pKE@mongodb:27017
       CACHE_URI: redis://cache:6379
     ports:
       - 8000:8000
@@ -26,8 +26,8 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: QByaxxm01xQHTY0
+      MONGO_INITDB_ROOT_PASSWORD: EkdjYC2a8g51pKE
     volumes:
       - dbdata6:/data/db
     healthcheck:
@@ -41,6 +41,19 @@ services:
     restart: always
     volumes:
       - redis:/data
+
+  mongoexpress:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment: 
+      - ME_CONFIG_MONGODB_URL=mongodb://QByaxxm01xQHTY0:EkdjYC2a8g51pKE@mongodb:27017
+      - ME_CONFIG_BASICAUTH_USERNAME=app-db-admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=z7mlAeXvPtiad7a
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: always
 
 volumes:
   dbdata6:
