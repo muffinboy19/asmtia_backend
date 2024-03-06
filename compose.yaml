@@ -50,6 +50,7 @@ services:
       - ME_CONFIG_MONGODB_URL=mongodb://QByaxxm01xQHTY0:EkdjYC2a8g51pKE@mongodb:27017
       - ME_CONFIG_BASICAUTH_USERNAME=app-db-admin
       - ME_CONFIG_BASICAUTH_PASSWORD=z7mlAeXvPtiad7a
+      - ME_CONFIG_SITE_BASEURL=/db
     depends_on:
       mongodb:
         condition: service_healthy
