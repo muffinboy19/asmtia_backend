@@ -12,9 +12,6 @@ const fixtureSchema = new Schema(
             type: Schema.Types.String,
             default: null,
         },
-        Date: {
-            type: Schema.Types.String,
-        },
         Day: {
             type: Schema.Types.Number,
             default: 0,
