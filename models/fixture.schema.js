@@ -13,8 +13,8 @@ const fixtureSchema = new Schema(
             default: null,
         },
         Day: {
-            type: Schema.Types.Number,
-            default: 0,
+            type: Schema.Types.String,
+            default: "0",
         },
     },
     { timestamps: true }

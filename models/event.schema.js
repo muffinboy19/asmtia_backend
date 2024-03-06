@@ -3,7 +3,6 @@ const { Schema, model } = mongoose;
 
 const event = new Schema(
     {
-
         name: {
             type: String
         },
@@ -11,9 +10,6 @@ const event = new Schema(
             type: String
         },
         image: {
-            type: String
-        },
-        date: {
             type: String
         }
     }
