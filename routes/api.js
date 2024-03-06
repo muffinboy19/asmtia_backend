@@ -6,6 +6,7 @@ import resultsRouter from "./results.routes.js";
 import authRouter from "./auth.routes.js";
 import logRouter from "./log.routes.js";
 import teamAsmitaRouter from "./teamAsmita.routes.js";
+import eventRouter from "./events.routes.js"
 import express from "express";
 import {
     executiveMiddleware,
@@ -24,5 +25,6 @@ router.use("/auth", authRouter);
 router.use("/results", resultsRouter);
 router.use("/logs", headMiddleware, logRouter);
 router.use("/teamAsmita", teamAsmitaRouter);
+router.use("/events", eventRouter);
 
 export default router;
