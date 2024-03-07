@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     Role: {
         type: String,
-        enum: ['volunteer', 'head', 'executive'],
+        
         default: 'volunteer' 
     },
     Password:{
