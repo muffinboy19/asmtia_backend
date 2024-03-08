@@ -1,6 +1,8 @@
 import AthleteResults from "../models/athelteresults.schema.js";
 import FootballResults from "../models/footballresults.schema.js";
 import CricketResults from "../models/cricketresults.schema.js";
+import LogDetails from "../models/logDetails.schema.js";
+import User from "../models/user.schema.js";
 import { setCache, getCache } from "../utils/cache.js";
 import { response_200, response_500 } from "../utils/responseCodes.js";
 
@@ -46,15 +48,15 @@ export const getResultsController = async (req, res) => {
                 data: JSON.parse(cached),
             });
         } else {
-            const footballResults = await FootballResults.find({}).sort({createdAt:-1});
-            const cricketResults = await CricketResults.find({}).sort({createdAt:-1});
-            const athleteResults = await AthleteResults.find({}).sort({createdAt:-1});
+            const footballResults = await FootballResults.find({}).sort({ createdAt: -1 });
+            const cricketResults = await CricketResults.find({}).sort({ createdAt: -1 });
+            const athleteResults = await AthleteResults.find({}).sort({ createdAt: -1 });
 
             const data = [];
             data.push(...footballResults);
             data.push(...cricketResults);
             data.push(...athleteResults);
-            
+
             await setCache("results", JSON.stringify(data));
 
             res.status(200).send({
@@ -107,7 +109,13 @@ export const updateFootballResultController = async (req, res) => {
             { new: true }
         );
         await newResult.save();
-
+        const agent = await User.findById(req.user.id);
+        const details = `Updated Football Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(201).send({
             success: true,
             message: "Result Updated",
@@ -163,6 +171,13 @@ export const updateCricketResultController = async (req, res) => {
             { new: true }
         );
         await newResult.save();
+        const agent = await User.findById(req.user.id);
+        const details = `Updated Cricket Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(201).send({
             success: true,
             message: "Result Updated",
@@ -201,6 +216,13 @@ export const updateAtheleteResultController = async (req, res) => {
             { new: true }
         );
         await newResult.save();
+        const agent = await User.findById(req.user.id);
+        const details = `Updated Athlete Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(201).send({
             success: true,
             message: "Result Updated",
@@ -253,6 +275,13 @@ export const createFootballResultController = async (req, res) => {
             SportName,
             Type: "football",
         }).save();
+        const agent = await User.findById(req.user.id);
+        const details = `Created Football Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(201).send({
             success: true,
             message: "Result Created",
@@ -295,6 +324,13 @@ export const createAthleteResultController = async (req, res) => {
             SportName,
             Type: "athlete",
         }).save();
+        const agent = await User.findById(req.user.id);
+        const details = `Created Athlete Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(201).send({
             success: true,
             message: "Result Created",
@@ -359,6 +395,13 @@ export const createCricketResultController = async (req, res) => {
             SportName,
             Type: "cricket",
         }).save();
+        const agent = await User.findById(req.user.id);
+        const details = `Created Cricket Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(201).send({
             success: true,
             message: "Result Created",
@@ -376,6 +419,13 @@ export const createCricketResultController = async (req, res) => {
 export const deleteAthleteResultController = async (req, res) => {
     try {
         const prod = await AthleteResults.findByIdAndDelete(req.params.id);
+        const agent = await User.findById(req.user.id);
+        const details = `Deleted Athlete Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(200).send({
             success: true,
             message: "Successfully Deleted",
@@ -393,6 +443,13 @@ export const deleteAthleteResultController = async (req, res) => {
 export const deleteFootballResultController = async (req, res) => {
     try {
         const prod = await FootballResults.findByIdAndDelete(req.params.id);
+        const agent = await User.findById(req.user.id);
+        const details = `Deleted Athlete Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(200).send({
             success: true,
             message: "Successfully Deleted",
@@ -409,6 +466,13 @@ export const deleteFootballResultController = async (req, res) => {
 export const deleteCricketResultController = async (req, res) => {
     try {
         const prod = await CricketResults.findByIdAndDelete(req.params.id);
+        const agent = await User.findById(req.user.id);
+        const details = `Deleted Cricket Result`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(200).send({
             success: true,
             message: "Successfully Deleted",

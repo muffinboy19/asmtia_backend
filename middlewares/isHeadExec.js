@@ -74,4 +74,26 @@ const headMiddleware = (req, res, next) => {
     }
 };
 
-export { headExecMiddleware, headMiddleware, executiveMiddleware };
+const allMiddleware = (req, res, next) => {
+    try {
+        const token = req.headers["authorization"].split(" ")[1];
+        const user = jwt.verify(token, SECRET_KEY);
+        if (user.role === "head" || user.role === "executive" || user.role === "volunteer") {
+            req.user = { id: user.id, role: user.role };
+            next();
+        } else {
+            return res.status(403).json({ message: "You are not authorized" });
+        }
+    } catch (err) {
+        console.log(
+            "Error occurred while parsing request in middleware (head)"
+        );
+        response_500(
+            res,
+            "Error occurred while parsing request in middleware (head)",
+            err
+        );
+    }
+};
+
+export { headExecMiddleware, headMiddleware, executiveMiddleware, allMiddleware };

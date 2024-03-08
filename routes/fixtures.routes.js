@@ -7,6 +7,7 @@ import {
     getUpcomingFixtures,
     updateFixture,
 } from "../controllers/fixtures.controllers.js";
+import { allMiddleware } from "../middlewares/isHeadExec.js";
 import express from "express";
 
 const router = express.Router();
@@ -15,8 +16,8 @@ router.get("/", getAllFixtures);
 router.get("/upcoming", getUpcomingFixtures);
 router.get("/:sport", getBySport);
 router.get("/:sport/:day", getByDay);
-router.post("/create", createFixture);
-router.delete("/:id", deleteFixture);
-router.patch("/:id", updateFixture);
+router.post("/create", allMiddleware, createFixture);
+router.delete("/:id", allMiddleware, deleteFixture);
+router.patch("/:id", allMiddleware, updateFixture);
 
 export default router;

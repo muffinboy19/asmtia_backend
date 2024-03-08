@@ -1,4 +1,6 @@
 import Fixture from "../models/fixture.schema.js";
+import LogDetails from "../models/logDetails.schema.js";
+import User from "../models/user.schema.js";
 import {
     response_200,
     response_400,
@@ -18,7 +20,7 @@ export async function getAllFixtures(req, res) {
             });
         } else {
             const fixtures = await Fixture.find({});
-            
+
             fixtures.sort(function (a, b) {
                 return a.Day - b.Day;
             });
@@ -35,18 +37,18 @@ export async function getAllFixtures(req, res) {
 export const getUpcomingFixtures = async (req, res) => {
     try {
         const cached = await getCache("upcomingFixtures");
-        if(cached){
+        if (cached) {
             return res.status(200).send({
                 success: true,
                 message: "Successfully fetching upcoming fixtures (recently created)",
                 data: JSON.parse(cached),
             });
         }
-        else{
+        else {
             const fixt = await Fixture.find({});
-            const number =5;
+            const number = 5;
             fixt.sort((a, b) => a.createdAt - b.createdAt);
-            const fixtures=fixt.slice(0, number);
+            const fixtures = fixt.slice(0, number);
             await setCache("upcomingFixtures", JSON.stringify(fixtures));
             response_200(
                 res,
@@ -141,6 +143,13 @@ export async function deleteFixture(req, res) {
         const deleteFixture = await Fixture.findByIdAndDelete(fixtureId);
         console.log("deleteFixture: ", deleteFixture);
         if (deleteFixture) {
+            const agent = await User.findById(req.user.id);
+            const details = `Deleted Fixture`;
+            const newLog = await LogDetails.create({
+                enrollment_no: agent.EnrollmentNo,
+                details,
+            });
+            console.log(newLog);
             console.log("Deleted fixture: ", deleteFixture);
             response_200(res, "Successfully deleted fixture!", deleteFixture);
         } else {
@@ -161,6 +170,13 @@ export async function createFixture(req, res) {
         const addFixture = await Fixture.create(req.body);
 
         if (addFixture) {
+            const agent = await User.findById(req.user.id);
+            const details = `Created New Fixture`;
+            const newLog = await LogDetails.create({
+                enrollment_no: agent.EnrollmentNo,
+                details,
+            });
+            console.log(newLog);
             console.log(
                 `Successfully added fixture for Day ${Day} of ${Sport}`
             );
@@ -184,6 +200,13 @@ export async function updateFixture(req, res) {
             new: true,
         });
         if (updFixture) {
+            const agent = await User.findById(req.user.id);
+            const details = `Updated Fixture`;
+            const newLog = await LogDetails.create({
+                enrollment_no: agent.EnrollmentNo,
+                details,
+            });
+            console.log(newLog);
             console.log("Successfully updated fixture");
             response_200(res, "Successfully updated fixture", updFixture);
         } else {
