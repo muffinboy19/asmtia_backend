@@ -40,11 +40,11 @@ export const getUpcomingFixtures = async (req, res) => {
         if (cached) {
             return res.status(200).send({
                 success: true,
-                message: "Successfully fetching upcoming fixtures (recently created)",
+                message:
+                    "Successfully fetching upcoming fixtures (recently created)",
                 data: JSON.parse(cached),
             });
-        }
-        else {
+        } else {
             const fixt = await Fixture.find({});
             const number = 5;
             fixt.sort((a, b) => a.createdAt - b.createdAt);
@@ -144,7 +144,7 @@ export async function deleteFixture(req, res) {
         console.log("deleteFixture: ", deleteFixture);
         if (deleteFixture) {
             const agent = await User.findById(req.user.id);
-            const details = `Deleted Fixture`;
+            const details = `Deleted Fixture of ${deleteFixture.Day}, ${deleteFixture.Sport}`;
             const newLog = await LogDetails.create({
                 enrollment_no: agent.EnrollmentNo,
                 details,
@@ -171,7 +171,7 @@ export async function createFixture(req, res) {
 
         if (addFixture) {
             const agent = await User.findById(req.user.id);
-            const details = `Created New Fixture`;
+            const details = `Created New Fixture for ${addFixture.Day}, $${addFixture.Sport}`;
             const newLog = await LogDetails.create({
                 enrollment_no: agent.EnrollmentNo,
                 details,
@@ -201,7 +201,7 @@ export async function updateFixture(req, res) {
         });
         if (updFixture) {
             const agent = await User.findById(req.user.id);
-            const details = `Updated Fixture`;
+            const details = `Updated Fixture to ${updFixture.Day}, ${updFixture.Sport}`;
             const newLog = await LogDetails.create({
                 enrollment_no: agent.EnrollmentNo,
                 details,
