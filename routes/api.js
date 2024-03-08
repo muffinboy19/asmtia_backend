@@ -9,6 +9,7 @@ import teamAsmitaRouter from "./teamAsmita.routes.js";
 import eventRouter from "./events.routes.js";
 import aboutRouter from "./about.routes.js";
 import galleryRouter from "./gallery.routes.js";
+import notificationRouter from "./noti.routes.js";
 import express from "express";
 import {
     executiveMiddleware,
@@ -29,7 +30,7 @@ router.use("/logs", headMiddleware, logRouter);
 router.use("/teamAsmita", teamAsmitaRouter);
 router.use("/events", eventRouter);
 router.use("/about", aboutRouter);
-router.use("/gallery",galleryRouter);
-
+router.use("/gallery", galleryRouter);
+router.use("/noti", notificationRouter);
 
 export default router;
