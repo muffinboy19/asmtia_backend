@@ -5,6 +5,7 @@ import empLeaderboardRouter from "./empLeaderboard.routes.js";
 import resultsRouter from "./results.routes.js";
 import authRouter from "./auth.routes.js";
 import logRouter from "./log.routes.js";
+import notificationRouter from "./noti.routes.js"
 import express from "express";
 import {
     executiveMiddleware,
@@ -22,5 +23,6 @@ router.use("/emp/leaderboard", empLeaderboardRouter);
 router.use("/auth", authRouter);
 router.use("/results", resultsRouter);
 router.use("/logs", headMiddleware, logRouter);
+router.use("/noti", notificationRouter)
 
 export default router;
