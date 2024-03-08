@@ -1,4 +1,6 @@
 import Leaderboard from "../models/leaderboard.schema.js";
+import LogDetails from "../models/logDetails.schema.js";
+import User from "../models/user.schema.js";
 import mongoose from "mongoose";
 import { getCache, setCache } from "../utils/cache.js";
 export const getLeaderboard = async (req, res) => {
@@ -27,7 +29,6 @@ export const getLeaderboard = async (req, res) => {
 
 export const updateLeaderboardEntry = async (req, res) => {
     const { id } = req.params;
-    const newPoints = req.body.points;
 
     try {
         // If not valid
@@ -45,12 +46,16 @@ export const updateLeaderboardEntry = async (req, res) => {
             return res.status(404).json({
                 message: `Leaderboard entry not found with id: ${id}`,
             });
-
+        const agent = await User.findById(req.user.id);
+        const details = `Updated Student Leaderboard by ${updatedEntry.Points} points to ${updatedEntry.Name}`;
+        const newLog = await LogDetails.create({
+            enrollment_no: agent.EnrollmentNo,
+            details,
+        });
+        console.log(newLog);
         res.status(200).json(updatedEntry);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// leader - head exec
-// fixtures,result - v

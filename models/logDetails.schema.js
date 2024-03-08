@@ -3,13 +3,11 @@ const { Schema, model } = mongoose;
 
 const logSchema = new Schema(
     {
-        User: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+        enrollment_no: {
+            type: String
         },
-        typeChanged: {
+        details: {
             type: String,
-            enum: ["result", "fixture", "leaderboard"],
         },
     },
     { timestamps: true }

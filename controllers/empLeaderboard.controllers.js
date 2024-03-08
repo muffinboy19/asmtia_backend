@@ -34,7 +34,7 @@ export const getLeaderboard = async (req, res) => {
 
 export const updateLeaderboardEntry = async (req, res) => {
     const { id } = req.params;
-    const newPoints = req.body.points;
+    const newPoints = req.body.Points;
     console.log("req.user: ", req.user);
     try {
         // If not valid
@@ -53,11 +53,13 @@ export const updateLeaderboardEntry = async (req, res) => {
                 res,
                 `Leaderboard entry with entry id not found: ${id}`
             );
-
+        const agent = await User.findById(req.user.id);
+        const details = `Updated Employee Leaderboard by ${updatedEntry.Points} points to ${updatedEntry.Name}`;
         const newLog = await LogDetails.create({
-            User: req.user.id,
-            typeChanged: "leaderboard",
+            enrollment_no: agent.EnrollmentNo,
+            details,
         });
+        console.log(newLog);
         response_200(
             res,
             "Successfully updated employee leaderboard id",

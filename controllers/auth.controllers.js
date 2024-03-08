@@ -34,7 +34,7 @@ export const loginUser = async (req, res) => {
                                         role: loginUser.Role,
                                     },
                                     SECRET_KEY,
-                                    { expiresIn: "24h" }
+                                    { expiresIn: "1h" }
                                 ),
                             },
                         });
